@@ -25,4 +25,8 @@ public record User(
 
         @Builder(toBuilder = true)
         public User {};
+
+        public User withEmail(String email) {
+            return new User(userId, name, email, likes, parameters);
+        }
     }
