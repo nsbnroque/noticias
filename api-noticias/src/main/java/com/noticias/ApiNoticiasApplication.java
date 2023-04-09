@@ -1,4 +1,4 @@
-package com.noticias.apinoticias;
+package com.noticias;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
