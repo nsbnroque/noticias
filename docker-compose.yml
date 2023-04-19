@@ -1,0 +1,42 @@
+version: "3.9"
+
+services:
+  api:
+    build: 
+      context: ./api-noticias
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:neo4j:bolt://db:7687
+      SPRING_DATASOURCE_USERNAME: neo4j
+      SPRING_DATASOURCE_PASSWORD: verysecret
+    networks:
+      - app-network
+
+  db:
+    image: neo4j:latest
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    environment:
+      NEO4J_AUTH: neo4j/verysecret
+    volumes:
+      - ./data:/data
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "4200:4200"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

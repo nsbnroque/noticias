@@ -32,3 +32,6 @@ build/
 ### VS Code ###
 .vscode/
 api-noticias/src/main/resources/application.properties
+
+##db###
+data/
