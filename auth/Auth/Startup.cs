@@ -7,6 +7,7 @@ using GraphQL.Server.Ui.GraphiQL;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 
 namespace Auth
@@ -15,15 +16,17 @@ namespace Auth
     {
         public Startup(IConfiguration configuration)
         {
-            DotEnv.Load();
+            DotEnv.Load();  
+
         }
         public IConfiguration Configuration { get;}
         public void ConfigureServices(IServiceCollection services)
         {
+            var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING");
             services.AddDbContext<AuthContext>(options =>
-                                  options.UseNpgsql(
-                                    Configuration
-                                    .GetConnectionString("DefaultConnection")));
+                                               options.UseNpgsql(connectionString));
+            Console.WriteLine($"Connection string: {connectionString}");
+            services.AddDbContext<AuthContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
             services.AddCors();
             services.AddControllers();
             // Obtém o valor da variável de ambiente JWT_SECRET
