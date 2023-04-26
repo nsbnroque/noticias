@@ -1,10 +1,13 @@
 using System.Text;
+using Auth.Contexts;
 using Auth.Models;
 using dotenv.net;
 using GraphQL;
 using GraphQL.Server.Ui.GraphiQL;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Configuration;
 
 namespace Auth
 {
@@ -14,8 +17,13 @@ namespace Auth
         {
             DotEnv.Load();
         }
+        public IConfiguration Configuration { get;}
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<AuthContext>(options =>
+                                  options.UseNpgsql(
+                                    Configuration
+                                    .GetConnectionString("DefaultConnection")));
             services.AddCors();
             services.AddControllers();
             // Obtém o valor da variável de ambiente JWT_SECRET
