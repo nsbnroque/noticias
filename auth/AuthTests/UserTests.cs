@@ -11,7 +11,7 @@ namespace AuthTests
         }
 
         [Fact]
-        public void deveCriarUsuario()
+        public void shouldCreateUser()
         {
             string username = "joao";
             string password = "verysecret";
