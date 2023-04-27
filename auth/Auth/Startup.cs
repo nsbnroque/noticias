@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
+using Auth.Services;
 
 namespace Auth
 {
@@ -26,6 +27,7 @@ namespace Auth
             services.AddDbContext<AuthContext>(options =>
                                                options.UseNpgsql(connectionString));
             Console.WriteLine($"Connection string: {connectionString}");
+            services.AddTransient<UserImp>();
             services.AddDbContext<AuthContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
             services.AddCors();
             services.AddControllers();
