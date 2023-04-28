@@ -1,6 +1,8 @@
 type Query {
   users: [User!]!
   userById(Id: int) : User
+  updateUser(input: UpdateUserInput) : User
+  deleteUserById(Id: ID!) : String
 }
 
 type User {
@@ -10,6 +12,12 @@ type User {
 }
 
 input CreateUserInput {
+  name: String!
+  email: String!
+}
+
+input UpdateUserInput {
+  id: ID!
   name: String!
   email: String!
 }

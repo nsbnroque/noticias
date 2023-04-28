@@ -31,9 +31,31 @@ namespace Auth.Models
             service.SaveChanges();
             return user;
         }
+
+        public User UpdateUser([Service]AuthContext service, UpdateUserInput input){
+            var user = new User { Id  =  input.Id, Name = input.Name, Email = input.Email };
+            service.Update<User>(user);
+            service.SaveChanges();
+            return user;
+        }
+
+        public String DeleteUserById([Service]AuthContext service,  int Id){
+            User user = new User () { Id = Id };
+            service.Users.Attach(user);
+            service.Users.Remove(user);
+            service.SaveChanges();
+            return $"User with {Id} has been deleted succesfully.";
+        }
     }
 
     public class User
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
+    }
+
+        public class UpdateUserInput
     {
         public int Id { get; set; }
         public string Name { get; set; }
