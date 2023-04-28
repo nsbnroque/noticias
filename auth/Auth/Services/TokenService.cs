@@ -11,7 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 namespace Auth.Services
 {
     public static class TokenService
-    {
+    {/* 
         public static string secret = Environment.GetEnvironmentVariable("JWT_SECRET");
         public static string GenerateToken(User user){
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -32,5 +32,6 @@ namespace Auth.Services
 
         }
         
-    }
+    } */
+}
 }

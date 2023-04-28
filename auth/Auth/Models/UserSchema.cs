@@ -2,20 +2,47 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using GraphQL.Instrumentation;
-using GraphQL.Types;
+using Auth.Contexts;
+using HotChocolate;
+using HotChocolate.AspNetCore;
+using HotChocolate.AspNetCore.Playground;
+using HotChocolate.Types;
 
 namespace Auth.Models
 {
-    public class UserSchema  : Schema
+        public class Query
     {
-    public UserSchema(IServiceProvider provider)
-        : base(provider)
-    {
-        Query = (UserQuery)provider.GetService(typeof(UserQuery)) ?? throw new InvalidOperationException();
-        Mutation = (UserMutation)provider.GetService(typeof(UserMutation)) ?? throw new InvalidOperationException();
+        public List<User> GetUsers([Service]AuthContext service)
+        {
+            return service.Users.ToList<User>();
+        }
 
-        FieldMiddleware.Use(new InstrumentFieldsMiddleware());
+        public User GetUserById([Service]AuthContext service,  int Id){
+            return service.Users.Find(Id);
+        }
     }
+
+    public class Mutation
+    {
+        public User CreateUser([Service]AuthContext service, CreateUserInput input)
+        {
+            var user = new User { Name = input.Name, Email = input.Email };
+            service.Add(user);
+            service.SaveChanges();
+            return user;
+        }
+    }
+
+    public class User
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
+    }
+
+    public class CreateUserInput
+    {
+        public string Name { get; set; }
+        public string Email { get; set; }
     }
 }

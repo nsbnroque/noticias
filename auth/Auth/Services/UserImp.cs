@@ -12,9 +12,14 @@ namespace Auth.Services
         public UserImp(AuthContext context){
             _context = context;
         }
-        
+
+        public UserImp()
+        {
+        }
+
         public User Save(User user)
         {
+            Console.WriteLine("Chegou aqui" + user);
             _context.Add(user);
             _context.SaveChanges();
             return user;
@@ -50,6 +55,11 @@ namespace Auth.Services
        public async Task<User> GetByIdAsync(int id)
         {
         return await _context.Users.FindAsync(id);
+        }
+
+        internal void Save(CreateUserInput input)
+        {
+            throw new NotImplementedException();
         }
     }
 }

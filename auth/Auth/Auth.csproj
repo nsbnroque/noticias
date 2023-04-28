@@ -8,10 +8,8 @@
 
   <ItemGroup>
     <PackageReference Include="dotenv.net" Version="3.1.2" />
-    <PackageReference Include="GraphQL" Version="7.4.1" />
-    <PackageReference Include="GraphQL.MicrosoftDI" Version="7.4.1" />
-    <PackageReference Include="GraphQL.Server.Ui.GraphiQL" Version="7.4.0" />
-    <PackageReference Include="GraphQL.SystemTextJson" Version="7.4.1" />
+    <PackageReference Include="HotChocolate.AspNetCore" Version="13.0.5" />
+    <PackageReference Include="HotChocolate.AspNetCore.Playground" Version="10.5.5" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.5" />

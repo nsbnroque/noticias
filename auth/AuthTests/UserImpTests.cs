@@ -17,7 +17,7 @@ namespace AuthTests
         public void WhenSaveShouldSaveUser()
         {
             User user = new User(username: "username",password: "verysecret");
-            User saved = _userImp.save(user);
+            User saved = _userImp.Save(user);
             Assert.Equal(user,saved);
         }
     }
